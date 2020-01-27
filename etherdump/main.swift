@@ -11,13 +11,11 @@ import PackageEtherCapture
 
 print("Hello, World!")
 
-func gotFrame(frame: Frame) -> Void {
+let etherCapture = EtherCapture(interface: "en0", command: "icmp or icmp6") { frame in
     debugPrint(frame.description)
 }
-guard let etherCapture = EtherCapture(interface: "en0", command: "") else {
-    fatalError("failed to initialize SwiftPcap")
-}
-etherCapture.setCallback(gotFrame(frame:))
+
+//etherCapture.setCallback(gotFrame(frame:))
 
 
 /*DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
