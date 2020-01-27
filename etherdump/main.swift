@@ -11,11 +11,16 @@ import PackageEtherCapture
 
 print("Hello, World!")
 
+func gotFrame(frame: Frame) -> Void {
+    debugPrint(frame.description)
+}
 guard let etherCapture = EtherCapture(interface: "en0", command: "") else {
     fatalError("failed to initialize SwiftPcap")
 }
+etherCapture.setCallback(gotFrame(frame:))
 
-DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+
+/*DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
     var done = false
     repeat {
         if let frame = etherCapture.nextPacket() {
@@ -24,5 +29,5 @@ DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
             done = true
         }
     } while !done
-}
+}*/
 RunLoop.current.run()
