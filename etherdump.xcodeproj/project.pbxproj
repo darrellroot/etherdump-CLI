@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2F4F2F7723DE513700957338 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4F2F7623DE513700957338 /* main.swift */; };
+		2F4F2F8123DE518C00957338 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4F2F8023DE518C00957338 /* main.swift */; };
+		2F4F2F8D23DE607000957338 /* PackageEtherCapture in Frameworks */ = {isa = PBXBuildFile; productRef = 2F4F2F8C23DE607000957338 /* PackageEtherCapture */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +25,7 @@
 
 /* Begin PBXFileReference section */
 		2F4F2F7323DE513700957338 /* etherdump */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = etherdump; sourceTree = BUILT_PRODUCTS_DIR; };
-		2F4F2F7623DE513700957338 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		2F4F2F8023DE518C00957338 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F4F2F8D23DE607000957338 /* PackageEtherCapture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,7 +59,7 @@
 		2F4F2F7523DE513700957338 /* etherdump */ = {
 			isa = PBXGroup;
 			children = (
-				2F4F2F7623DE513700957338 /* main.swift */,
+				2F4F2F8023DE518C00957338 /* main.swift */,
 			);
 			path = etherdump;
 			sourceTree = "<group>";
@@ -78,6 +80,9 @@
 			dependencies = (
 			);
 			name = etherdump;
+			packageProductDependencies = (
+				2F4F2F8C23DE607000957338 /* PackageEtherCapture */,
+			);
 			productName = etherdump;
 			productReference = 2F4F2F7323DE513700957338 /* etherdump */;
 			productType = "com.apple.product-type.tool";
@@ -106,6 +111,9 @@
 				Base,
 			);
 			mainGroup = 2F4F2F6A23DE513700957338;
+			packageReferences = (
+				2F4F2F8B23DE607000957338 /* XCRemoteSwiftPackageReference "PackageEtherCapture" */,
+			);
 			productRefGroup = 2F4F2F7423DE513700957338 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -120,7 +128,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F4F2F7723DE513700957338 /* main.swift in Sources */,
+				2F4F2F8123DE518C00957338 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +292,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2F4F2F8B23DE607000957338 /* XCRemoteSwiftPackageReference "PackageEtherCapture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/darrellroot/PackageEtherCapture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2F4F2F8C23DE607000957338 /* PackageEtherCapture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2F4F2F8B23DE607000957338 /* XCRemoteSwiftPackageReference "PackageEtherCapture" */;
+			productName = PackageEtherCapture;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2F4F2F6B23DE513700957338 /* Project object */;
 }

@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "PackageEtherCapture",
+        "repositoryURL": "https://github.com/darrellroot/PackageEtherCapture.git",
+        "state": {
+          "branch": null,
+          "revision": "506eccb07e7b573048e46c490ff0c084b77629a9",
+          "version": "0.0.4"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
