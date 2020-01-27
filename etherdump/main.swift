@@ -9,8 +9,6 @@
 import Foundation
 import PackageEtherCapture
 
-print("Hello, World!")
-
 let etherCapture: EtherCapture?
 do {
     etherCapture = try EtherCapture(interface: "en0", command: "icfwemp or icmp6") { frame in
