@@ -18,15 +18,26 @@ class ArgumentParser {
         case c
         case expression   // near the end of the cli
         case i
+        case s
     }
     var argumentState = ArgumentState.begin
     var expression = ""
     var packetCount: Int32 = 0
     var listAllInterfaces = false
+    var displayPacketNumber = false
     var displayLinkLayer = false
+    var displayTimestamp = true
+    var promiscuousMode = true
     var help = false
     var version = false
     var interface: String? = nil
+    var snaplen = 96 {
+        didSet {
+            guard snaplen > 95 else {
+                fatalError("Unexpected error: snaplen must be 96 or greater")
+            }
+        }
+    }
     
     init?(_ arguments: [String]) {
         ARGUMENTS: for argument in arguments {
@@ -47,6 +58,14 @@ class ArgumentParser {
                     self.help = true
                 case "-i":
                     self.argumentState = .i
+                case "-#","--number":
+                    self.displayPacketNumber = true
+                case "-p","--no-promiscuous-mode":
+                    self.promiscuousMode = false
+                case "-s":
+                    self.argumentState = .s
+                case "-t":
+                    self.displayTimestamp = false
                 case "--version":
                     self.version = true
                 default:
@@ -75,13 +94,19 @@ class ArgumentParser {
             case .i:
                 self.interface = argument
                 self.argumentState = .etherdump
+            case .s:
+                guard case self.snaplen = Int(argument), self.snaplen >= 96 else {
+                    usage()
+                    exit(EXIT_FAILURE)
+                }
+                self.argumentState = .etherdump
             }// switch argumentState
         }// for argument in arguments
         switch argumentState {
             
         case .begin, .etherdump, .expression:  //valid end states
             break
-        case .c, .i: // invalid end states
+        case .c, .i, .s: // invalid end states
             usage()
             return nil
         }
@@ -104,6 +129,11 @@ OPTIONS:
   -e                      Display link-layer header
   -h, --help              Print this message and exit
   -i <interface>          Listen on <interface>
+  -p, --no-promiscuous-mode   Do not put interface into promiscuous-mode
+  -#, --number            Print packet number at beginning of line
+  -s <snaplen>            Set frame capture size to <snaplen>.  Must be 96 or greater
+  --version               Print etherdump and libpcap version and exit
+
 """
         printVersion()
         print(usageString)

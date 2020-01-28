@@ -54,19 +54,27 @@ if arguments.listAllInterfaces {
 }
 
 let interface = determineInterface(arguments: arguments)
+let dateFormatter = DateFormatter()
+dateFormatter.dateFormat = "HH:mm:ss.SSS "
 
 var packetCount: Int32 = 0
 
 let etherCapture: EtherCapture?
 do {
-    etherCapture = try EtherCapture(interface: interface, count: arguments.packetCount, command: arguments.expression) { frame in
+    etherCapture = try EtherCapture(interface: interface, count: arguments.packetCount, command: arguments.expression, snaplen: arguments.snaplen, promiscuous: arguments.promiscuousMode) { frame in
+        packetCount = packetCount + 1
+        if arguments.displayPacketNumber {
+            print(String(format: "%5d ",packetCount),terminator: "")
+        }
+        if arguments.displayTimestamp {
+            print(dateFormatter.string(from: frame.date),terminator: "")
+        }
         if arguments.displayLinkLayer {
-            debugPrint(frame.description)
+            print(frame.description)
         } else {
-            debugPrint(frame.contents.description)
+            print(frame.contents.description)
         }
         
-        packetCount = packetCount + 1
         if packetCount == arguments.packetCount {
             finish(success: true)
         }
