@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PackageEtherCapture
 
 class ArgumentParser {
     //This class should be a singleqton
@@ -16,12 +17,16 @@ class ArgumentParser {
         case etherdump   // the default state when any command can be expected
         case c
         case expression   // near the end of the cli
+        case i
     }
     var argumentState = ArgumentState.begin
     var expression = ""
     var packetCount: Int32 = 0
     var listAllInterfaces = false
     var displayLinkLayer = false
+    var help = false
+    var version = false
+    var interface: String? = nil
     
     init?(_ arguments: [String]) {
         ARGUMENTS: for argument in arguments {
@@ -36,9 +41,14 @@ class ArgumentParser {
                     //continue ARGUMENTS
                 case "-D","--list-interfaces":
                     self.listAllInterfaces = true
-                    self.argumentState = .etherdump
                 case "-e":
                     self.displayLinkLayer = true
+                case "-h","--help":
+                    self.help = true
+                case "-i":
+                    self.argumentState = .i
+                case "--version":
+                    self.version = true
                 default:
                     guard argument.first != "-" else {
                         usage()
@@ -62,23 +72,40 @@ class ArgumentParser {
                 }
                 self.packetCount = packetCount
                 self.argumentState = .etherdump
-                
-            }
+            case .i:
+                self.interface = argument
+                self.argumentState = .etherdump
+            }// switch argumentState
+        }// for argument in arguments
+        switch argumentState {
+            
+        case .begin, .etherdump, .expression:  //valid end states
+            break
+        case .c, .i: // invalid end states
+            usage()
+            return nil
         }
+    }//init?
+    func printVersion() {
+        let pcapVersion = EtherCapture.pcapVersion()
+        print("etherdump packet capture tool version 0.0.1")
+        print("\(pcapVersion)")
     }
     func usage() {
         let usageString = """
-OVERVIEW: etherdump packet capture tool version 0.0.1
+
 SOURCE: https://github.com/darrellroot/etherdump/
-MARKETING: https://networkmom.net/
-EMAIL: feedback AT networkmom.net
+
 USAGE: etherdump [options] [expression]
 
 OPTIONS:
   -c <count>              Capture <count> packets and exit
   -D, --list-interfaces   Print list of all interfaces and exit
-  -e                      Display link-layer headers
+  -e                      Display link-layer header
+  -h, --help              Print this message and exit
+  -i <interface>          Listen on <interface>
 """
+        printVersion()
         print(usageString)
     }
     

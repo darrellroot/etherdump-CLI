@@ -17,8 +17,29 @@ func finish(success: Bool) {
     }
 }
 
+func determineInterface(arguments: ArgumentParser) -> String {
+    if let interface = arguments.interface {
+        return interface
+    }
+    do {
+        let interface = try EtherCapture.defaultInterface()
+        return interface
+    } catch {
+        print("Error: unable to determine interface \(error)")
+        exit(EXIT_FAILURE)
+    }
+}
+
 guard var arguments = ArgumentParser(CommandLine.arguments) else {
     exit(EXIT_FAILURE)  // argument parser already printed out usage message
+}
+if arguments.help {
+    arguments.usage()
+    exit(EXIT_SUCCESS)
+}
+if arguments.version {
+    arguments.printVersion()
+    exit(EXIT_SUCCESS)
 }
 if arguments.listAllInterfaces {
     if let interfaces = EtherCapture.listInterfaces() {
@@ -32,11 +53,13 @@ if arguments.listAllInterfaces {
     }
 }
 
+let interface = determineInterface(arguments: arguments)
+
 var packetCount: Int32 = 0
 
 let etherCapture: EtherCapture?
 do {
-    etherCapture = try EtherCapture(interface: "en0", count: arguments.packetCount, command: arguments.expression) { frame in
+    etherCapture = try EtherCapture(interface: interface, count: arguments.packetCount, command: arguments.expression) { frame in
         if arguments.displayLinkLayer {
             debugPrint(frame.description)
         } else {
@@ -49,7 +72,8 @@ do {
         }
     }
 } catch {
-    print("EtherCapture initialization failed with error \(error)")
+    print("\(error)")
+    exit(EXIT_FAILURE)
 }
 
 RunLoop.current.run()
