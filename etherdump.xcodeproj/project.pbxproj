@@ -303,7 +303,7 @@
 			repositoryURL = "https://github.com/darrellroot/PackageEtherCapture.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.17;
+				minimumVersion = 0.0.21;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

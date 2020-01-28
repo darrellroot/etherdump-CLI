@@ -9,7 +9,7 @@
 import Foundation
 import PackageEtherCapture
 
-func finish(success: Bool) {
+func finish(success: Bool) -> Never {
     if success {
         exit(EXIT_SUCCESS)
     } else {
@@ -72,11 +72,21 @@ do {
         if arguments.displayLinkLayer {
             print(frame.description)
         } else {
-            print(frame.contents.description)
+            print(frame.layer3.description)
+        }
+        
+        switch (arguments.displayHexL2, arguments.displayHexL3) {
+        
+        case (true, false), (true, true):
+            print(frame.hexdump)
+        case (false, true):
+            print(frame.layer3.hexdump)    // TODO
+        case (false, false):
+            break
         }
         
         if packetCount == arguments.packetCount {
-            finish(success: true)
+            finish(success: true)  // does not return
         }
     }
 } catch {

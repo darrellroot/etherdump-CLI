@@ -27,6 +27,8 @@ class ArgumentParser {
     var displayPacketNumber = false
     var displayLinkLayer = false
     var displayTimestamp = true
+    var displayHexL2 = false
+    var displayHexL3 = false
     var promiscuousMode = true
     var help = false
     var version = false
@@ -68,6 +70,10 @@ class ArgumentParser {
                     self.displayTimestamp = false
                 case "--version":
                     self.version = true
+                case "-x":
+                    self.displayHexL3 = true
+                case "-xx":
+                    self.displayHexL2 = true
                 default:
                     guard argument.first != "-" else {
                         usage()
@@ -133,6 +139,8 @@ OPTIONS:
   -#, --number            Print packet number at beginning of line
   -s <snaplen>            Set frame capture size to <snaplen>.  Must be 96 or greater
   --version               Print etherdump and libpcap version and exit
+  -x                      Display hexdump starting at layer 3
+  -xx                     Display hexdump including layer 2
 
 """
         printVersion()
