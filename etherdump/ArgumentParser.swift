@@ -29,6 +29,7 @@ class ArgumentParser {
     var displayTimestamp = true
     var displayHexL2 = false
     var displayHexL3 = false
+    var displayVerboseL2 = false
     var promiscuousMode = true
     var help = false
     var version = false
@@ -68,6 +69,8 @@ class ArgumentParser {
                     self.argumentState = .s
                 case "-t":
                     self.displayTimestamp = false
+                case "-v2":
+                    self.displayVerboseL2 = true
                 case "--version":
                     self.version = true
                 case "-x":
@@ -138,6 +141,7 @@ OPTIONS:
   -p, --no-promiscuous-mode   Do not put interface into promiscuous-mode
   -#, --number            Print packet number at beginning of line
   -s <snaplen>            Set frame capture size to <snaplen>.  Must be 96 or greater
+  -v2                     Display verbose layer-2 information
   --version               Print etherdump and libpcap version and exit
   -x                      Display hexdump starting at layer 3
   -xx                     Display hexdump including layer 2
