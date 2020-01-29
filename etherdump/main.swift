@@ -77,6 +77,10 @@ do {
         if arguments.displayVerboseL2 {
             print(frame.verboseDescription)
         }
+        if arguments.displayVerboseL3 {
+            print(frame.layer3)
+        }
+
         
         switch (arguments.displayHexL2, arguments.displayHexL3) {
         
