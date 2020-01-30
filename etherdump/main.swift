@@ -75,12 +75,17 @@ do {
             print(frame.layer3.description)
         }
         if arguments.displayVerboseL2 {
-            print(frame.verboseDescription)
+            print("  ",frame.verboseDescription)
         }
         if arguments.displayVerboseL3 {
-            print(frame.layer3)
+            print("    ",frame.layer3.verboseDescription)
         }
 
+        if arguments.displayVerboseL4 {
+            if let layer4 = frame.layer4 {
+                print("      ",layer4.verboseDescription)
+            }
+        }
         
         switch (arguments.displayHexL2, arguments.displayHexL3) {
         

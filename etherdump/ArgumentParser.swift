@@ -31,6 +31,7 @@ class ArgumentParser {
     var displayHexL3 = false
     var displayVerboseL2 = false
     var displayVerboseL3 = false
+    var displayVerboseL4 = false
     var promiscuousMode = true
     var help = false
     var version = false
@@ -74,6 +75,8 @@ class ArgumentParser {
                     self.displayVerboseL2 = true
                 case "-v3":
                     self.displayVerboseL3 = true
+                case "-v4":
+                    self.displayVerboseL4 = true
                 case "--version":
                     self.version = true
                 case "-x":
@@ -146,6 +149,7 @@ OPTIONS:
   -s <snaplen>            Set frame capture size to <snaplen>.  Must be 96 or greater
   -v2                     Display verbose layer-2 information
   -v3                     Display verbose layer-3 information
+  -v4                     Display verbose layer-4 information
   --version               Print etherdump and libpcap version and exit
   -x                      Display hexdump starting at layer 3
   -xx                     Display hexdump including layer 2
