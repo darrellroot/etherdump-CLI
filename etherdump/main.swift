@@ -9,14 +9,7 @@
 import Foundation
 import PackageEtherCapture
 
-func finish(success: Bool) -> Never {
-    if success {
-        exit(EXIT_SUCCESS)
-    } else {
-        exit(EXIT_FAILURE)
-    }
-}
-
+var frames: [Frame] = []
 func determineInterface(arguments: ArgumentParser) -> String {
     if let interface = arguments.interface {
         return interface
@@ -33,6 +26,34 @@ func determineInterface(arguments: ArgumentParser) -> String {
 guard var arguments = ArgumentParser(CommandLine.arguments) else {
     exit(EXIT_FAILURE)  // argument parser already printed out usage message
 }
+
+func finish(success: Bool) -> Never {
+    if success {
+        if let filename = arguments.writeFileJson {
+            let encoder = JSONEncoder()
+            let fileManager = FileManager()
+            let encodedFrames: Data
+            do {
+                encodedFrames = try encoder.encode(frames)
+            } catch {
+                print("Error failed to encode frames error \(error)")
+                exit(EXIT_FAILURE)
+            }
+            let path = fileManager.currentDirectoryPath
+            let url = URL(fileURLWithPath: path).appendingPathComponent(filename)
+            do {
+                try encodedFrames.write(to: url)
+            } catch {
+                print("Error failed to write file url \(url) error \(error)")
+                exit(EXIT_FAILURE)
+            }
+        }
+        exit(EXIT_SUCCESS)
+    } else {
+        exit(EXIT_FAILURE)
+    }
+}
+
 if arguments.help {
     arguments.usage()
     exit(EXIT_SUCCESS)
@@ -59,43 +80,50 @@ dateFormatter.dateFormat = "HH:mm:ss.SSS "
 
 var packetCount: Int32 = 0
 
+func displayFrame(frame: Frame, packetCount: Int32) {
+    if arguments.writeFileJson != nil {
+        frames.append(frame)
+    }
+    if arguments.displayPacketNumber {
+        print(String(format: "%5d ",packetCount),terminator: "")
+    }
+    if arguments.displayTimestamp {
+        print(dateFormatter.string(from: frame.date),terminator: "")
+    }
+    if arguments.displayLinkLayer {
+        print(frame.description)
+    } else {
+        print(frame.layer3.description)
+    }
+    if arguments.displayVerboseL2 {
+        print("  ",frame.verboseDescription)
+    }
+    if arguments.displayVerboseL3 {
+        print("    ",frame.layer3.verboseDescription)
+    }
+
+    if arguments.displayVerboseL4 {
+        if let layer4 = frame.layer4 {
+            print("      ",layer4.verboseDescription)
+        }
+    }
+    
+    switch (arguments.displayHexL2, arguments.displayHexL3) {
+    
+    case (true, false), (true, true):
+        print(frame.hexdump)
+    case (false, true):
+        print(frame.layer3.hexdump)    // TODO
+    case (false, false):
+        break
+    }
+}
 let etherCapture: EtherCapture?
 do {
     etherCapture = try EtherCapture(interface: interface, count: arguments.packetCount, command: arguments.expression, snaplen: arguments.snaplen, promiscuous: arguments.promiscuousMode) { frame in
         packetCount = packetCount + 1
-        if arguments.displayPacketNumber {
-            print(String(format: "%5d ",packetCount),terminator: "")
-        }
-        if arguments.displayTimestamp {
-            print(dateFormatter.string(from: frame.date),terminator: "")
-        }
-        if arguments.displayLinkLayer {
-            print(frame.description)
-        } else {
-            print(frame.layer3.description)
-        }
-        if arguments.displayVerboseL2 {
-            print("  ",frame.verboseDescription)
-        }
-        if arguments.displayVerboseL3 {
-            print("    ",frame.layer3.verboseDescription)
-        }
-
-        if arguments.displayVerboseL4 {
-            if let layer4 = frame.layer4 {
-                print("      ",layer4.verboseDescription)
-            }
-        }
         
-        switch (arguments.displayHexL2, arguments.displayHexL3) {
-        
-        case (true, false), (true, true):
-            print(frame.hexdump)
-        case (false, true):
-            print(frame.layer3.hexdump)    // TODO
-        case (false, false):
-            break
-        }
+        displayFrame(frame: frame, packetCount: packetCount)
         
         if packetCount == arguments.packetCount {
             finish(success: true)  // does not return

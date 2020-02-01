@@ -18,7 +18,9 @@ class ArgumentParser {
         case c
         case expression   // near the end of the cli
         case i
+        case r
         case s
+        case w
     }
     var argumentState = ArgumentState.begin
     var expression = ""
@@ -36,6 +38,8 @@ class ArgumentParser {
     var help = false
     var version = false
     var interface: String? = nil
+    var readFileJson: String? = nil
+    var writeFileJson: String? = nil
     var snaplen = 96 {
         didSet {
             guard snaplen > 95 else {
@@ -67,6 +71,8 @@ class ArgumentParser {
                     self.displayPacketNumber = true
                 case "-p","--no-promiscuous-mode":
                     self.promiscuousMode = false
+                case "-r":
+                    self.argumentState = .r
                 case "-s":
                     self.argumentState = .s
                 case "-t":
@@ -79,6 +85,8 @@ class ArgumentParser {
                     self.displayVerboseL4 = true
                 case "--version":
                     self.version = true
+                case "-w":
+                    self.argumentState = .w
                 case "-x":
                     self.displayHexL3 = true
                 case "-xx":
@@ -109,11 +117,17 @@ class ArgumentParser {
             case .i:
                 self.interface = argument
                 self.argumentState = .etherdump
+            case .r:
+                self.readFileJson = argument
+                self.argumentState = .etherdump
             case .s:
                 guard case self.snaplen = Int(argument), self.snaplen >= 96 else {
                     usage()
                     exit(EXIT_FAILURE)
                 }
+                self.argumentState = .etherdump
+            case .w:
+                self.writeFileJson = argument
                 self.argumentState = .etherdump
             }// switch argumentState
         }// for argument in arguments
@@ -121,10 +135,12 @@ class ArgumentParser {
             
         case .begin, .etherdump, .expression:  //valid end states
             break
-        case .c, .i, .s: // invalid end states
+        case .c, .i, .r, .s, .w: // invalid end states
             usage()
             return nil
         }
+        // TODO test for invalid combined states
+        
     }//init?
     func printVersion() {
         let pcapVersion = EtherCapture.pcapVersion()
@@ -151,6 +167,7 @@ OPTIONS:
   -v3                     Display verbose layer-3 information
   -v4                     Display verbose layer-4 information
   --version               Print etherdump and libpcap version and exit
+  -w [filename]           Write frames to [filename] in JSON format after capture
   -x                      Display hexdump starting at layer 3
   -xx                     Display hexdump including layer 2
 
