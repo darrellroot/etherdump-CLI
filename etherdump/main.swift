@@ -8,6 +8,7 @@
 
 import Foundation
 import PackageEtherCapture
+import PackageSwiftPcapng
 
 var frames: [Frame] = []
 func determineInterface(arguments: ArgumentParser) -> String {
@@ -80,7 +81,7 @@ dateFormatter.dateFormat = "HH:mm:ss.SSS "
 
 var packetCount: Int32 = 0
 
-func displayFrame(frame: Frame, packetCount: Int32) {
+func displayFrame(frame: Frame, packetCount: Int32, arguments: ArgumentParser) {
     if arguments.writeFileJson != nil {
         frames.append(frame)
     }
@@ -118,12 +119,54 @@ func displayFrame(frame: Frame, packetCount: Int32) {
         break
     }
 }
+
+if let readFile = arguments.readFileJson {
+    guard let url = Bundle.main.url(forResource: readFile, withExtension: "") else {
+        print("Error: Unable to determine url from file \(readFile)")
+        exit(EXIT_FAILURE)
+    }
+    do {
+        let data = try Data(contentsOf: url)
+        let decoder = JSONDecoder()
+        frames = try decoder.decode([Frame].self, from: data)
+        var packetCount: Int32 = 0
+        for frame in frames {
+            packetCount = packetCount + 1
+            displayFrame(frame: frame, packetCount: packetCount, arguments: arguments)
+        }
+        exit(EXIT_SUCCESS)
+    } catch {
+        print("Unable to decode frames from url \(url) error:\(error)")
+        exit(EXIT_FAILURE)
+    }
+}
+
+if let readFile = arguments.readFilePcapng {
+    guard let url = Bundle.main.url(forResource: readFile, withExtension: "") else {
+        print("Error: Unable to determine url from file \(readFile)")
+        exit(EXIT_FAILURE)
+    }
+    do {
+        let data = try Data(contentsOf: url)
+        let pcapng = Pcapng(data: data)
+        guard let packetBlocks = pcapng?.segments.first?.packetBlocks else {
+            print("Error: unable to get packets from decoding PCAPNG file \(url)")
+            exit(EXIT_FAILURE)
+        }
+        for (count,packet) in packetBlocks.enumerated() {
+            let frame = Frame(data: packet.packetData)
+            displayFrame(frame: frame, packetCount: Int32(count), arguments: arguments)
+        }
+        exit(EXIT_SUCCESS)
+    }
+}
+    
 let etherCapture: EtherCapture?
 do {
     etherCapture = try EtherCapture(interface: interface, count: arguments.packetCount, command: arguments.expression, snaplen: arguments.snaplen, promiscuous: arguments.promiscuousMode) { frame in
         packetCount = packetCount + 1
         
-        displayFrame(frame: frame, packetCount: packetCount)
+        displayFrame(frame: frame, packetCount: packetCount, arguments: arguments)
         
         if packetCount == arguments.packetCount {
             finish(success: true)  // does not return

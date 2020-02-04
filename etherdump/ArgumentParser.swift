@@ -19,6 +19,7 @@ class ArgumentParser {
         case expression   // near the end of the cli
         case i
         case r
+        case R
         case s
         case w
     }
@@ -39,6 +40,7 @@ class ArgumentParser {
     var version = false
     var interface: String? = nil
     var readFileJson: String? = nil
+    var readFilePcapng: String? = nil
     var writeFileJson: String? = nil
     var snaplen = 96 {
         didSet {
@@ -73,6 +75,8 @@ class ArgumentParser {
                     self.promiscuousMode = false
                 case "-r":
                     self.argumentState = .r
+                case "-R":
+                    self.argumentState = .R
                 case "-s":
                     self.argumentState = .s
                 case "-t":
@@ -118,6 +122,9 @@ class ArgumentParser {
                 self.interface = argument
                 self.argumentState = .etherdump
             case .r:
+                self.readFilePcapng = argument
+                self.argumentState = .etherdump
+            case .R:
                 self.readFileJson = argument
                 self.argumentState = .etherdump
             case .s:
@@ -135,7 +142,7 @@ class ArgumentParser {
             
         case .begin, .etherdump, .expression:  //valid end states
             break
-        case .c, .i, .r, .s, .w: // invalid end states
+        case .c, .i, .r, .R, .s, .w: // invalid end states
             usage()
             return nil
         }
@@ -160,8 +167,10 @@ OPTIONS:
   -e                      Display link-layer header
   -h, --help              Print this message and exit
   -i <interface>          Listen on <interface>
-  -p, --no-promiscuous-mode   Do not put interface into promiscuous-mode
   -#, --number            Print packet number at beginning of line
+  -p, --no-promiscuous-mode   Do not put interface into promiscuous-mode
+  -r [filename]           Reads from file [filename] in pcapng format
+  -R [filename]           Reads from file [filename] in JSON format
   -s <snaplen>            Set frame capture size to <snaplen>.  Must be 96 or greater
   -v2                     Display verbose layer-2 information
   -v3                     Display verbose layer-3 information

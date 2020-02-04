@@ -10,6 +10,13 @@
 		2F4F2F8123DE518C00957338 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4F2F8023DE518C00957338 /* main.swift */; };
 		2F4F2F8D23DE607000957338 /* PackageEtherCapture in Frameworks */ = {isa = PBXBuildFile; productRef = 2F4F2F8C23DE607000957338 /* PackageEtherCapture */; };
 		2F4F2FA623DF956B00957338 /* ArgumentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4F2FA523DF956B00957338 /* ArgumentParser.swift */; };
+		2FA6194923E918E800A75FA4 /* PackageSwiftPcapng in Frameworks */ = {isa = PBXBuildFile; productRef = 2FA6194823E918E800A75FA4 /* PackageSwiftPcapng */; };
+		2FA6195123E920D600A75FA4 /* etherdump_test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA6195023E920D600A75FA4 /* etherdump_test.swift */; };
+		2FA6195723E9217B00A75FA4 /* test001.pcapng in Resources */ = {isa = PBXBuildFile; fileRef = 2FA6195623E9217B00A75FA4 /* test001.pcapng */; };
+		2FA6195823E9230A00A75FA4 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4F2F8023DE518C00957338 /* main.swift */; };
+		2FA6195923E9230D00A75FA4 /* ArgumentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4F2FA523DF956B00957338 /* ArgumentParser.swift */; };
+		2FA6196823E9296800A75FA4 /* PackageEtherCapture in Frameworks */ = {isa = PBXBuildFile; productRef = 2FA6196723E9296800A75FA4 /* PackageEtherCapture */; };
+		2FA6196A23E9296800A75FA4 /* PackageSwiftPcapng in Frameworks */ = {isa = PBXBuildFile; productRef = 2FA6196923E9296800A75FA4 /* PackageSwiftPcapng */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +35,10 @@
 		2F4F2F7323DE513700957338 /* etherdump */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = etherdump; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F4F2F8023DE518C00957338 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		2F4F2FA523DF956B00957338 /* ArgumentParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentParser.swift; sourceTree = "<group>"; };
+		2FA6194E23E920D600A75FA4 /* etherdump-test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "etherdump-test.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2FA6195023E920D600A75FA4 /* etherdump_test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = etherdump_test.swift; sourceTree = "<group>"; };
+		2FA6195223E920D600A75FA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2FA6195623E9217B00A75FA4 /* test001.pcapng */ = {isa = PBXFileReference; lastKnownFileType = file; path = test001.pcapng; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,7 +46,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FA6194923E918E800A75FA4 /* PackageSwiftPcapng in Frameworks */,
 				2F4F2F8D23DE607000957338 /* PackageEtherCapture in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2FA6194B23E920D600A75FA4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2FA6196A23E9296800A75FA4 /* PackageSwiftPcapng in Frameworks */,
+				2FA6196823E9296800A75FA4 /* PackageEtherCapture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,7 +67,9 @@
 			isa = PBXGroup;
 			children = (
 				2F4F2F7523DE513700957338 /* etherdump */,
+				2FA6194F23E920D600A75FA4 /* etherdump-test */,
 				2F4F2F7423DE513700957338 /* Products */,
+				2FA6196623E9296800A75FA4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				2F4F2F7323DE513700957338 /* etherdump */,
+				2FA6194E23E920D600A75FA4 /* etherdump-test.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -65,6 +89,23 @@
 				2F4F2FA523DF956B00957338 /* ArgumentParser.swift */,
 			);
 			path = etherdump;
+			sourceTree = "<group>";
+		};
+		2FA6194F23E920D600A75FA4 /* etherdump-test */ = {
+			isa = PBXGroup;
+			children = (
+				2FA6195623E9217B00A75FA4 /* test001.pcapng */,
+				2FA6195023E920D600A75FA4 /* etherdump_test.swift */,
+				2FA6195223E920D600A75FA4 /* Info.plist */,
+			);
+			path = "etherdump-test";
+			sourceTree = "<group>";
+		};
+		2FA6196623E9296800A75FA4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -85,10 +126,32 @@
 			name = etherdump;
 			packageProductDependencies = (
 				2F4F2F8C23DE607000957338 /* PackageEtherCapture */,
+				2FA6194823E918E800A75FA4 /* PackageSwiftPcapng */,
 			);
 			productName = etherdump;
 			productReference = 2F4F2F7323DE513700957338 /* etherdump */;
 			productType = "com.apple.product-type.tool";
+		};
+		2FA6194D23E920D600A75FA4 /* etherdump-test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2FA6195323E920D600A75FA4 /* Build configuration list for PBXNativeTarget "etherdump-test" */;
+			buildPhases = (
+				2FA6194A23E920D600A75FA4 /* Sources */,
+				2FA6194B23E920D600A75FA4 /* Frameworks */,
+				2FA6194C23E920D600A75FA4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "etherdump-test";
+			packageProductDependencies = (
+				2FA6196723E9296800A75FA4 /* PackageEtherCapture */,
+				2FA6196923E9296800A75FA4 /* PackageSwiftPcapng */,
+			);
+			productName = "etherdump-test";
+			productReference = 2FA6194E23E920D600A75FA4 /* etherdump-test.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -101,6 +164,9 @@
 				ORGANIZATIONNAME = com.darrellroot;
 				TargetAttributes = {
 					2F4F2F7223DE513700957338 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					2FA6194D23E920D600A75FA4 = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
 				};
@@ -116,15 +182,28 @@
 			mainGroup = 2F4F2F6A23DE513700957338;
 			packageReferences = (
 				2F4F2F8B23DE607000957338 /* XCRemoteSwiftPackageReference "PackageEtherCapture" */,
+				2FA6194723E918E800A75FA4 /* XCRemoteSwiftPackageReference "PackageSwiftPcapng" */,
 			);
 			productRefGroup = 2F4F2F7423DE513700957338 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				2F4F2F7223DE513700957338 /* etherdump */,
+				2FA6194D23E920D600A75FA4 /* etherdump-test */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2FA6194C23E920D600A75FA4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2FA6195723E9217B00A75FA4 /* test001.pcapng in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2F4F2F6F23DE513700957338 /* Sources */ = {
@@ -133,6 +212,16 @@
 			files = (
 				2F4F2F8123DE518C00957338 /* main.swift in Sources */,
 				2F4F2FA623DF956B00957338 /* ArgumentParser.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2FA6194A23E920D600A75FA4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2FA6195823E9230A00A75FA4 /* main.swift in Sources */,
+				2FA6195123E920D600A75FA4 /* etherdump_test.swift in Sources */,
+				2FA6195923E9230D00A75FA4 /* ArgumentParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +363,42 @@
 			};
 			name = Release;
 		};
+		2FA6195423E920D600A75FA4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 8DU2Q8ABKY;
+				INFOPLIST_FILE = "etherdump-test/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "net.networkmom.etherdump-test";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		2FA6195523E920D600A75FA4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 8DU2Q8ABKY;
+				INFOPLIST_FILE = "etherdump-test/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "net.networkmom.etherdump-test";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -295,6 +420,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		2FA6195323E920D600A75FA4 /* Build configuration list for PBXNativeTarget "etherdump-test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2FA6195423E920D600A75FA4 /* Debug */,
+				2FA6195523E920D600A75FA4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -303,7 +437,15 @@
 			repositoryURL = "https://github.com/darrellroot/PackageEtherCapture.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.35;
+				minimumVersion = 0.0.40;
+			};
+		};
+		2FA6194723E918E800A75FA4 /* XCRemoteSwiftPackageReference "PackageSwiftPcapng" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/darrellroot/PackageSwiftPcapng.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.14;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -313,6 +455,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2F4F2F8B23DE607000957338 /* XCRemoteSwiftPackageReference "PackageEtherCapture" */;
 			productName = PackageEtherCapture;
+		};
+		2FA6194823E918E800A75FA4 /* PackageSwiftPcapng */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2FA6194723E918E800A75FA4 /* XCRemoteSwiftPackageReference "PackageSwiftPcapng" */;
+			productName = PackageSwiftPcapng;
+		};
+		2FA6196723E9296800A75FA4 /* PackageEtherCapture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2F4F2F8B23DE607000957338 /* XCRemoteSwiftPackageReference "PackageEtherCapture" */;
+			productName = PackageEtherCapture;
+		};
+		2FA6196923E9296800A75FA4 /* PackageSwiftPcapng */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2FA6194723E918E800A75FA4 /* XCRemoteSwiftPackageReference "PackageSwiftPcapng" */;
+			productName = PackageSwiftPcapng;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
