@@ -41,6 +41,7 @@ class ArgumentParser {
     var interface: String? = nil
     var readFileJson: String? = nil
     var readFilePcapng: String? = nil
+    var verboseLogging = false
     var writeFileJson: String? = nil
     var snaplen = 96 {
         didSet {
@@ -81,6 +82,8 @@ class ArgumentParser {
                     self.argumentState = .s
                 case "-t":
                     self.displayTimestamp = false
+                case "-v":
+                    self.verboseLogging = true
                 case "-v2":
                     self.displayVerboseL2 = true
                 case "-v3":
@@ -172,6 +175,7 @@ OPTIONS:
   -r [filename]           Reads from file [filename] in pcapng format
   -R [filename]           Reads from file [filename] in JSON format
   -s <snaplen>            Set frame capture size to <snaplen>.  Must be 96 or greater
+  -v                      Display verbose error logging
   -v2                     Display verbose layer-2 information
   -v3                     Display verbose layer-3 information
   -v4                     Display verbose layer-4 information

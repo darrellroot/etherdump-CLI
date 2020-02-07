@@ -9,6 +9,7 @@
 import Foundation
 import PackageEtherCapture
 import PackageSwiftPcapng
+import Logging
 
 var frames: [Frame] = []
 func determineInterface(arguments: ArgumentParser) -> String {
@@ -26,6 +27,15 @@ func determineInterface(arguments: ArgumentParser) -> String {
 
 guard var arguments = ArgumentParser(CommandLine.arguments) else {
     exit(EXIT_FAILURE)  // argument parser already printed out usage message
+}
+
+LoggingSystem.bootstrap(DarrellLogHandler.init)
+if arguments.verboseLogging {
+    Pcapng.logger.logLevel = .info
+    EtherCapture.logger.logLevel = .info
+} else {
+    Pcapng.logger.logLevel = .error
+    EtherCapture.logger.logLevel = .error
 }
 
 func finish(success: Bool) -> Never {
