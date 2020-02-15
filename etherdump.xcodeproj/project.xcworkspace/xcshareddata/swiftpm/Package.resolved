@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/darrellroot/PackageEtherCapture.git",
         "state": {
           "branch": null,
-          "revision": "d3e5536654b5d14c84c855c9f35c35af5cd6ca66",
-          "version": "0.0.41"
+          "revision": "579f5633035fd3ceb3436fcbdb300dfce97a5488",
+          "version": "0.0.44"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/darrellroot/PackageSwiftPcapng.git",
         "state": {
           "branch": null,
-          "revision": "8c697abbb05e225a176d26831e679762a6aee5f7",
-          "version": "0.0.27"
+          "revision": "cd4c31c9d4108b981cb91d0073edaf4954426e00",
+          "version": "0.0.34"
         }
       },
       {

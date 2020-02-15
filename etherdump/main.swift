@@ -20,8 +20,8 @@ func determineInterface(arguments: ArgumentParser) -> String {
         let interface = try EtherCapture.defaultInterface()
         return interface
     } catch {
-        print("Error: unable to determine interface \(error)")
-        exit(EXIT_FAILURE)
+        print("Error: unable to determine interface \(error) defaulting to en0")
+        return "en0"
     }
 }
 
@@ -85,7 +85,6 @@ if arguments.listAllInterfaces {
     }
 }
 
-let interface = determineInterface(arguments: arguments)
 let dateFormatter = DateFormatter()
 dateFormatter.dateFormat = "HH:mm:ss.SSS "
 
@@ -151,26 +150,46 @@ if let readFile = arguments.readFileJson {
     }
 }
 
-if let readFile = arguments.readFilePcapng {
-    guard let url = Bundle.main.url(forResource: readFile, withExtension: "") else {
+//let testfile: String? = "/tmp/a.pcap"
+//if let readFile = testfile {
+if let readFile = arguments.readFilePcap {
+    let url = URL(fileURLWithPath: readFile)
+    /*guard let url = Bundle.main.url(forResource: readFile, withExtension: "") else {
         print("Error: Unable to determine url from file \(readFile)")
         exit(EXIT_FAILURE)
-    }
+    }*/
     do {
         let data = try Data(contentsOf: url)
-        let pcapng = Pcapng(data: data)
-        guard let packetBlocks = pcapng?.segments.first?.packetBlocks else {
-            print("Error: unable to get packets from decoding PCAPNG file \(url)")
+        switch PcapType.detect(data: data) {
+        case .pcap:
+            let pcap = try Pcap(data: data)
+            for (count,packet) in pcap.packets.enumerated() {
+                let frame = Frame(data: packet.packetData)
+                displayFrame(frame: frame, packetCount: Int32(count), arguments: arguments)
+            }
+        case .pcapng:
+            let pcapng = Pcapng(data: data)
+            var packetBlocks: [PcapngPacket] = []
+            for segment in pcapng?.segments ?? [] {
+                packetBlocks.append(contentsOf: segment.packetBlocks)
+            }
+            for (count,packet) in packetBlocks.enumerated() {
+                let frame = Frame(data: packet.packetData)
+                displayFrame(frame: frame, packetCount: Int32(count), arguments: arguments)
+            }
+        case .neither:
+            print("Unable to decode pcap file")
             exit(EXIT_FAILURE)
         }
-        for (count,packet) in packetBlocks.enumerated() {
-            let frame = Frame(data: packet.packetData)
-            displayFrame(frame: frame, packetCount: Int32(count), arguments: arguments)
-        }
         exit(EXIT_SUCCESS)
+    } catch {
+        print("Unable to decode pcap file: \(error)")
+        exit(EXIT_FAILURE)
     }
 }
-    
+
+let interface = determineInterface(arguments: arguments)
+
 let etherCapture: EtherCapture?
 do {
     etherCapture = try EtherCapture(interface: interface, count: arguments.packetCount, command: arguments.expression, snaplen: arguments.snaplen, promiscuous: arguments.promiscuousMode) { frame in

@@ -18,8 +18,8 @@ class ArgumentParser {
         case c
         case expression   // near the end of the cli
         case i
+        case j
         case r
-        case R
         case s
         case w
     }
@@ -40,7 +40,7 @@ class ArgumentParser {
     var version = false
     var interface: String? = nil
     var readFileJson: String? = nil
-    var readFilePcapng: String? = nil
+    var readFilePcap: String? = nil
     var verboseLogging = false
     var writeFileJson: String? = nil
     var snaplen = 96 {
@@ -70,14 +70,14 @@ class ArgumentParser {
                     self.help = true
                 case "-i":
                     self.argumentState = .i
+                case "-j":
+                    self.argumentState = .j
                 case "-#","--number":
                     self.displayPacketNumber = true
                 case "-p","--no-promiscuous-mode":
                     self.promiscuousMode = false
                 case "-r":
                     self.argumentState = .r
-                case "-R":
-                    self.argumentState = .R
                 case "-s":
                     self.argumentState = .s
                 case "-t":
@@ -124,11 +124,11 @@ class ArgumentParser {
             case .i:
                 self.interface = argument
                 self.argumentState = .etherdump
-            case .r:
-                self.readFilePcapng = argument
-                self.argumentState = .etherdump
-            case .R:
+            case .j:
                 self.readFileJson = argument
+                self.argumentState = .etherdump
+            case .r:
+                self.readFilePcap = argument
                 self.argumentState = .etherdump
             case .s:
                 guard case self.snaplen = Int(argument), self.snaplen >= 96 else {
@@ -145,7 +145,7 @@ class ArgumentParser {
             
         case .begin, .etherdump, .expression:  //valid end states
             break
-        case .c, .i, .r, .R, .s, .w: // invalid end states
+        case .c, .i, .j, .r, .s, .w: // invalid end states
             usage()
             return nil
         }
@@ -170,10 +170,10 @@ OPTIONS:
   -e                      Display link-layer header
   -h, --help              Print this message and exit
   -i <interface>          Listen on <interface>
+  -j [filename]           Reads from file [filename] in JSON format
   -#, --number            Print packet number at beginning of line
   -p, --no-promiscuous-mode   Do not put interface into promiscuous-mode
-  -r [filename]           Reads from file [filename] in pcapng format
-  -R [filename]           Reads from file [filename] in JSON format
+  -r [filename]           Reads from file [filename] in pcap or pcapng format
   -s <snaplen>            Set frame capture size to <snaplen>.  Must be 96 or greater
   -v                      Display verbose error logging
   -v2                     Display verbose layer-2 information
