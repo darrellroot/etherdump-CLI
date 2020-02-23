@@ -22,6 +22,7 @@ class ArgumentParser {
         case r
         case s
         case w
+        case W
     }
     var argumentState = ArgumentState.begin
     var expression = ""
@@ -42,6 +43,7 @@ class ArgumentParser {
     var readFileJson: String? = nil
     var readFilePcap: String? = nil
     var verboseLogging = false
+    var writeFilePcap: String? = nil
     var writeFileJson: String? = nil
     var snaplen = 96 {
         didSet {
@@ -94,6 +96,8 @@ class ArgumentParser {
                     self.version = true
                 case "-w":
                     self.argumentState = .w
+                case "-W":
+                    self.argumentState = .W
                 case "-x":
                     self.displayHexL3 = true
                 case "-xx":
@@ -137,6 +141,9 @@ class ArgumentParser {
                 }
                 self.argumentState = .etherdump
             case .w:
+                self.writeFilePcap = argument
+                self.argumentState = .etherdump
+            case .W:
                 self.writeFileJson = argument
                 self.argumentState = .etherdump
             }// switch argumentState
@@ -145,7 +152,7 @@ class ArgumentParser {
             
         case .begin, .etherdump, .expression:  //valid end states
             break
-        case .c, .i, .j, .r, .s, .w: // invalid end states
+        case .c, .i, .j, .r, .s, .w, .W: // invalid end states
             usage()
             return nil
         }
@@ -180,7 +187,8 @@ OPTIONS:
   -v3                     Display verbose layer-3 information
   -v4                     Display verbose layer-4 information
   --version               Print etherdump and libpcap version and exit
-  -w [filename]           Write frames to [filename] in JSON format after capture
+  -w [filename]           Write frames to [filename] in PCAP format after capture
+  -W [filename]           Write frames to [filename] in JSON format after capture (not reimportable)
   -x                      Display hexdump starting at layer 3
   -xx                     Display hexdump including layer 2
 

@@ -59,6 +59,21 @@ func finish(success: Bool) -> Never {
                 exit(EXIT_FAILURE)
             }
         }
+        if let filename = arguments.writeFilePcap {
+            let fileManager = FileManager()
+            let encodedFrames: Data
+            do {
+                encodedFrames = EtherCapture.makePcap(frames: frames)
+            }
+            let path = fileManager.currentDirectoryPath
+            let url = URL(fileURLWithPath: path).appendingPathComponent(filename)
+            do {
+                try encodedFrames.write(to: url)
+            } catch {
+                print("Error failed to write file url \(url) error \(error)")
+                exit(EXIT_FAILURE)
+            }
+        }
         exit(EXIT_SUCCESS)
     } else {
         exit(EXIT_FAILURE)
@@ -94,6 +109,10 @@ func displayFrame(frame: Frame, packetCount: Int32, arguments: ArgumentParser) {
     if arguments.writeFileJson != nil {
         frames.append(frame)
     }
+    if arguments.writeFilePcap != nil {
+        frames.append(frame)
+    }
+
     if arguments.displayPacketNumber {
         print(String(format: "%5d ",packetCount),terminator: "")
     }
