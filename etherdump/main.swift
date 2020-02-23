@@ -164,7 +164,7 @@ if let readFile = arguments.readFilePcap {
         case .pcap:
             let pcap = try Pcap(data: data)
             for (count,packet) in pcap.packets.enumerated() {
-                let frame = Frame(data: packet.packetData)
+                let frame = Frame(data: packet.packetData, originalLength: packet.originalLength)
                 displayFrame(frame: frame, packetCount: Int32(count), arguments: arguments)
             }
         case .pcapng:
@@ -174,7 +174,7 @@ if let readFile = arguments.readFilePcap {
                 packetBlocks.append(contentsOf: segment.packetBlocks)
             }
             for (count,packet) in packetBlocks.enumerated() {
-                let frame = Frame(data: packet.packetData)
+                let frame = Frame(data: packet.packetData, originalLength: packet.originalLength)
                 displayFrame(frame: frame, packetCount: Int32(count), arguments: arguments)
             }
         case .neither:
