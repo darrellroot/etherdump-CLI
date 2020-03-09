@@ -40,25 +40,6 @@ if arguments.verboseLogging {
 
 func finish(success: Bool) -> Never {
     if success {
-        if let filename = arguments.writeFileJson {
-            let encoder = JSONEncoder()
-            let fileManager = FileManager()
-            let encodedFrames: Data
-            do {
-                encodedFrames = try encoder.encode(frames)
-            } catch {
-                print("Error failed to encode frames error \(error)")
-                exit(EXIT_FAILURE)
-            }
-            let path = fileManager.currentDirectoryPath
-            let url = URL(fileURLWithPath: path).appendingPathComponent(filename)
-            do {
-                try encodedFrames.write(to: url)
-            } catch {
-                print("Error failed to write file url \(url) error \(error)")
-                exit(EXIT_FAILURE)
-            }
-        }
         if let filename = arguments.writeFilePcap {
             let fileManager = FileManager()
             let encodedFrames: Data
@@ -106,9 +87,6 @@ dateFormatter.dateFormat = "HH:mm:ss.SSS "
 var packetCount: Int32 = 0
 
 func displayFrame(frame: Frame, packetCount: Int32, arguments: ArgumentParser) {
-    if arguments.writeFileJson != nil {
-        frames.append(frame)
-    }
     if arguments.writeFilePcap != nil {
         frames.append(frame)
     }
@@ -145,27 +123,6 @@ func displayFrame(frame: Frame, packetCount: Int32, arguments: ArgumentParser) {
         print(frame.layer3.hexdump)    // TODO
     case (false, false):
         break
-    }
-}
-
-if let readFile = arguments.readFileJson {
-    guard let url = Bundle.main.url(forResource: readFile, withExtension: "") else {
-        print("Error: Unable to determine url from file \(readFile)")
-        exit(EXIT_FAILURE)
-    }
-    do {
-        let data = try Data(contentsOf: url)
-        let decoder = JSONDecoder()
-        frames = try decoder.decode([Frame].self, from: data)
-        var packetCount: Int32 = 0
-        for frame in frames {
-            packetCount = packetCount + 1
-            displayFrame(frame: frame, packetCount: packetCount, arguments: arguments)
-        }
-        exit(EXIT_SUCCESS)
-    } catch {
-        print("Unable to decode frames from url \(url) error:\(error)")
-        exit(EXIT_FAILURE)
     }
 }
 

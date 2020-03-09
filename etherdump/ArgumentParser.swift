@@ -18,11 +18,9 @@ class ArgumentParser {
         case c
         case expression   // near the end of the cli
         case i
-        case j
         case r
         case s
         case w
-        case W
     }
     var argumentState = ArgumentState.begin
     var expression = ""
@@ -40,11 +38,9 @@ class ArgumentParser {
     var help = false
     var version = false
     var interface: String? = nil
-    var readFileJson: String? = nil
     var readFilePcap: String? = nil
     var verboseLogging = false
     var writeFilePcap: String? = nil
-    var writeFileJson: String? = nil
     var snaplen = 96 {
         didSet {
             guard snaplen > 95 else {
@@ -72,8 +68,6 @@ class ArgumentParser {
                     self.help = true
                 case "-i":
                     self.argumentState = .i
-                case "-j":
-                    self.argumentState = .j
                 case "-#","--number":
                     self.displayPacketNumber = true
                 case "-p","--no-promiscuous-mode":
@@ -96,8 +90,6 @@ class ArgumentParser {
                     self.version = true
                 case "-w":
                     self.argumentState = .w
-                case "-W":
-                    self.argumentState = .W
                 case "-x":
                     self.displayHexL3 = true
                 case "-xx":
@@ -128,9 +120,6 @@ class ArgumentParser {
             case .i:
                 self.interface = argument
                 self.argumentState = .etherdump
-            case .j:
-                self.readFileJson = argument
-                self.argumentState = .etherdump
             case .r:
                 self.readFilePcap = argument
                 self.argumentState = .etherdump
@@ -143,16 +132,13 @@ class ArgumentParser {
             case .w:
                 self.writeFilePcap = argument
                 self.argumentState = .etherdump
-            case .W:
-                self.writeFileJson = argument
-                self.argumentState = .etherdump
             }// switch argumentState
         }// for argument in arguments
         switch argumentState {
             
         case .begin, .etherdump, .expression:  //valid end states
             break
-        case .c, .i, .j, .r, .s, .w, .W: // invalid end states
+        case .c, .i, .r, .s, .w: // invalid end states
             usage()
             return nil
         }

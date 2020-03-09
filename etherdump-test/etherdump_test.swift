@@ -35,7 +35,7 @@ class etherdump_test: XCTestCase {
             return
         }
         for (count,packet) in packetBlocks.enumerated() {
-            let frame = Frame(data: packet.packetData)
+            let frame = Frame(data: packet.packetData, originalLength: packet.packetData.count)
             displayFrame(frame: frame, packetCount: Int32(count), arguments: arguments)
         }
         

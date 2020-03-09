@@ -7,17 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F028ABF2416E13400ACF07B /* PackageSwiftPcapng in Frameworks */ = {isa = PBXBuildFile; productRef = 2F028ABE2416E13400ACF07B /* PackageSwiftPcapng */; };
+		2F028AC02416E24700ACF07B /* DarrellLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5451CF23ED13FA00207DA3 /* DarrellLogHandler.swift */; };
+		2F028AC22416E27D00ACF07B /* PackageSwiftPcapng in Frameworks */ = {isa = PBXBuildFile; productRef = 2F028AC12416E27D00ACF07B /* PackageSwiftPcapng */; };
 		2F4F2F8123DE518C00957338 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4F2F8023DE518C00957338 /* main.swift */; };
 		2F4F2F8D23DE607000957338 /* PackageEtherCapture in Frameworks */ = {isa = PBXBuildFile; productRef = 2F4F2F8C23DE607000957338 /* PackageEtherCapture */; };
 		2F4F2FA623DF956B00957338 /* ArgumentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4F2FA523DF956B00957338 /* ArgumentParser.swift */; };
 		2F5451D023ED13FA00207DA3 /* DarrellLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5451CF23ED13FA00207DA3 /* DarrellLogHandler.swift */; };
-		2FA6194923E918E800A75FA4 /* PackageSwiftPcapng in Frameworks */ = {isa = PBXBuildFile; productRef = 2FA6194823E918E800A75FA4 /* PackageSwiftPcapng */; };
 		2FA6195123E920D600A75FA4 /* etherdump_test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA6195023E920D600A75FA4 /* etherdump_test.swift */; };
 		2FA6195723E9217B00A75FA4 /* test001.pcapng in Resources */ = {isa = PBXBuildFile; fileRef = 2FA6195623E9217B00A75FA4 /* test001.pcapng */; };
 		2FA6195823E9230A00A75FA4 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4F2F8023DE518C00957338 /* main.swift */; };
 		2FA6195923E9230D00A75FA4 /* ArgumentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4F2FA523DF956B00957338 /* ArgumentParser.swift */; };
 		2FA6196823E9296800A75FA4 /* PackageEtherCapture in Frameworks */ = {isa = PBXBuildFile; productRef = 2FA6196723E9296800A75FA4 /* PackageEtherCapture */; };
-		2FA6196A23E9296800A75FA4 /* PackageSwiftPcapng in Frameworks */ = {isa = PBXBuildFile; productRef = 2FA6196923E9296800A75FA4 /* PackageSwiftPcapng */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -48,7 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2FA6194923E918E800A75FA4 /* PackageSwiftPcapng in Frameworks */,
+				2F028ABF2416E13400ACF07B /* PackageSwiftPcapng in Frameworks */,
 				2F4F2F8D23DE607000957338 /* PackageEtherCapture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -57,7 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2FA6196A23E9296800A75FA4 /* PackageSwiftPcapng in Frameworks */,
+				2F028AC22416E27D00ACF07B /* PackageSwiftPcapng in Frameworks */,
 				2FA6196823E9296800A75FA4 /* PackageEtherCapture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -129,7 +130,7 @@
 			name = etherdump;
 			packageProductDependencies = (
 				2F4F2F8C23DE607000957338 /* PackageEtherCapture */,
-				2FA6194823E918E800A75FA4 /* PackageSwiftPcapng */,
+				2F028ABE2416E13400ACF07B /* PackageSwiftPcapng */,
 			);
 			productName = etherdump;
 			productReference = 2F4F2F7323DE513700957338 /* etherdump */;
@@ -150,7 +151,7 @@
 			name = "etherdump-test";
 			packageProductDependencies = (
 				2FA6196723E9296800A75FA4 /* PackageEtherCapture */,
-				2FA6196923E9296800A75FA4 /* PackageSwiftPcapng */,
+				2F028AC12416E27D00ACF07B /* PackageSwiftPcapng */,
 			);
 			productName = "etherdump-test";
 			productReference = 2FA6194E23E920D600A75FA4 /* etherdump-test.xctest */;
@@ -185,7 +186,7 @@
 			mainGroup = 2F4F2F6A23DE513700957338;
 			packageReferences = (
 				2F4F2F8B23DE607000957338 /* XCRemoteSwiftPackageReference "PackageEtherCapture" */,
-				2FA6194723E918E800A75FA4 /* XCRemoteSwiftPackageReference "PackageSwiftPcapng" */,
+				2F028ABD2416E13400ACF07B /* XCRemoteSwiftPackageReference "PackageSwiftPcapng" */,
 			);
 			productRefGroup = 2F4F2F7423DE513700957338 /* Products */;
 			projectDirPath = "";
@@ -223,6 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F028AC02416E24700ACF07B /* DarrellLogHandler.swift in Sources */,
 				2FA6195823E9230A00A75FA4 /* main.swift in Sources */,
 				2FA6195123E920D600A75FA4 /* etherdump_test.swift in Sources */,
 				2FA6195923E9230D00A75FA4 /* ArgumentParser.swift in Sources */,
@@ -436,6 +438,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2F028ABD2416E13400ACF07B /* XCRemoteSwiftPackageReference "PackageSwiftPcapng" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/darrellroot/PackageSwiftPcapng.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.39;
+			};
+		};
 		2F4F2F8B23DE607000957338 /* XCRemoteSwiftPackageReference "PackageEtherCapture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/darrellroot/PackageEtherCapture.git";
@@ -444,36 +454,28 @@
 				minimumVersion = 0.0.40;
 			};
 		};
-		2FA6194723E918E800A75FA4 /* XCRemoteSwiftPackageReference "PackageSwiftPcapng" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/darrellroot/PackageSwiftPcapng.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.14;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2F028ABE2416E13400ACF07B /* PackageSwiftPcapng */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2F028ABD2416E13400ACF07B /* XCRemoteSwiftPackageReference "PackageSwiftPcapng" */;
+			productName = PackageSwiftPcapng;
+		};
+		2F028AC12416E27D00ACF07B /* PackageSwiftPcapng */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2F028ABD2416E13400ACF07B /* XCRemoteSwiftPackageReference "PackageSwiftPcapng" */;
+			productName = PackageSwiftPcapng;
+		};
 		2F4F2F8C23DE607000957338 /* PackageEtherCapture */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2F4F2F8B23DE607000957338 /* XCRemoteSwiftPackageReference "PackageEtherCapture" */;
 			productName = PackageEtherCapture;
 		};
-		2FA6194823E918E800A75FA4 /* PackageSwiftPcapng */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2FA6194723E918E800A75FA4 /* XCRemoteSwiftPackageReference "PackageSwiftPcapng" */;
-			productName = PackageSwiftPcapng;
-		};
 		2FA6196723E9296800A75FA4 /* PackageEtherCapture */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2F4F2F8B23DE607000957338 /* XCRemoteSwiftPackageReference "PackageEtherCapture" */;
 			productName = PackageEtherCapture;
-		};
-		2FA6196923E9296800A75FA4 /* PackageSwiftPcapng */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2FA6194723E918E800A75FA4 /* XCRemoteSwiftPackageReference "PackageSwiftPcapng" */;
-			productName = PackageSwiftPcapng;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
